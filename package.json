@@ -13,8 +13,12 @@
     "test": "mocha --require babel-core/register --colors tests/*.test.js",
     "test:watch": "yarn test --watch",
     "test:coverage": "nyc npm test",
+    "prepush": "npm run lint",
     "coveralls": "yarn test:coverage && nyc report --reporter=text-lcov | coveralls"
   },
+  "files": [
+    "lib"
+  ],
   "nyc": {
     "reporter": [
       "text",
@@ -68,6 +72,7 @@
     "eslint-config-standard": "^10.2.1",
     "eslint-loader": "^1.9.0",
     "gulp": "^3.9.1",
+    "husky": "^0.14.3",
     "mocha": "^4.0.1",
     "nyc": "^11.3.0",
     "rimraf": "^2.6.2",
