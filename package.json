@@ -1,0 +1,78 @@
+{
+  "name": "haproxy-stats-json",
+  "version": "1.0.0",
+  "description": "Verify HAPROXY stats awesomely.",
+  "main": "lib/library.js",
+  "scripts": {
+    "clear": "rimraf lib",
+    "lint": "standard --parser babel-eslint --verbose | snazzy",
+    "lint:fix": "./node_modules/.bin/eslint src/**/* --fix",
+    "lint:watch": "gulp",
+    "build": "webpack --env dev && webpack --env build && npm run test",
+    "dev": "webpack --progress --colors --watch --env dev",
+    "test": "mocha --require babel-core/register --colors tests/*.test.js",
+    "test:watch": "yarn test --watch",
+    "test:coverage": "nyc npm test",
+    "coveralls": "yarn test:coverage && nyc report --reporter=text-lcov | coveralls"
+  },
+  "nyc": {
+    "reporter": [
+      "text",
+      "html"
+    ],
+    "exclude": [
+      "tests/**",
+      "lib/**"
+    ]
+  },
+  "standard": {
+    "globals": [
+      "fetch",
+      "it",
+      "expect",
+      "describe",
+      "jest"
+    ],
+    "ignore": [
+      "/lib/**/*.js",
+      "/tests/**/*.js",
+      "webpack.config.js"
+    ]
+  },
+  "keywords": [
+    "haproxy",
+    "stats",
+    "json",
+    "library",
+    "universal",
+    "umd",
+    "commonjs"
+  ],
+  "author": "Julio Cousteau",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jcware/haproxy-stats-json/issues"
+  },
+  "homepage": "https://github.com/jcware/haproxy-stats-json",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.2",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.1.2",
+    "coveralls": "^3.0.0",
+    "eslint": "^4.12.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-loader": "^1.9.0",
+    "gulp": "^3.9.1",
+    "mocha": "^4.0.1",
+    "nyc": "^11.3.0",
+    "rimraf": "^2.6.2",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.3",
+    "webpack": "^3.8.1",
+    "yargs": "^10.0.3"
+  }
+}
