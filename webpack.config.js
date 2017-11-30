@@ -5,7 +5,7 @@ const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 const path = require('path');
 const env = require('yargs').argv.env; // use --env with webpack 2
 
-let libraryName = 'hpStatsJson';
+let libraryName = 'haproxyStats';
 let libraryFileName = 'haproxy-stats-json';
 
 let plugins = [], outputFile;

@@ -1,14 +1,14 @@
 {
   "name": "haproxy-stats-json",
   "version": "1.0.0",
-  "description": "Verify HAPROXY stats awesomely.",
+  "description": "Get the HAPROXY stats in JSON awesomely.",
   "main": "lib/library.js",
   "scripts": {
     "clear": "rimraf lib",
     "lint": "standard --parser babel-eslint --verbose | snazzy",
     "lint:fix": "./node_modules/.bin/eslint src/**/* --fix",
     "lint:watch": "gulp",
-    "build": "webpack --env dev && webpack --env build && npm run test",
+    "build": "yarn test:coverage && yarn clear && webpack --env dev && webpack --env build",
     "dev": "webpack --progress --colors --watch --env dev",
     "test": "mocha --require babel-core/register --colors tests/*.test.js",
     "test:watch": "yarn test --watch",
@@ -36,6 +36,7 @@
     "ignore": [
       "/lib/**/*.js",
       "/tests/**/*.js",
+      "/example/**/*.js",
       "webpack.config.js"
     ]
   },
