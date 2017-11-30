@@ -2,10 +2,21 @@ const stats = require('../lib/haproxy-stats-json')
 
 /* Replace the dataCsvStr with the output csv from your haproxy server
    Eg. http://[your server]:8088/admin?stats;csv*/
-const dataCsvStr = `#
-pxname,svname,qcur,qmax,scur,smax,slim,stot,bin,bout,dreq,dresp,ereq,econ,eresp,wretr,wredis,status,weight,act,bck,chkfail,chkdown,lastchg,downtime,qlimit,pid,iid,sid,throttle,lbtot,tracked,type,rate,rate_lim,rate_max,check_status,check_code,check_duration,hrsp_1xx,hrsp_2xx,hrsp_3xx,hrsp_4xx,hrsp_5xx,hrsp_other,hanafail,req_rate,req_rate_max,req_tot,cli_abrt,srv_abrt,comp_in,comp_out,comp_byp,comp_rsp,lastsess,last_chk,last_agt,qtime,ctime,rtime,ttime,
-http-in,FRONTEND,,,2,58,20000,184262,156478673,3905526680,0,0,674,,,,,OPEN,,,,,,,,,1,2,0,,,,0,5,0,222,,,,0,172565,10489,1128,78,0,,5,224,184262,,,0,0,0,0,,,,,,,,
-gmapp,jbossN1,0,0,0,9,,8523,5938546,271282030,,0,,0,0,0,0,UP,1,1,0,3,1,2829,17,,1,3,1,,486,,2,0,,166,L7OK,200,14,0,6708,1741,63,11,0,0,,,,6,0,,,,,2,OK,,0,0,112,128,`
+const dataCsvStr = `# pxname,svname,qcur,qmax,scur,smax,slim,stot,bin,bout,dreq,dresp,ereq,econ,eresp,wretr,wredis,status,weight,act,bck,chkfail,chkdown,lastchg,downtime,qlimit,pid,iid,sid,throttle,lbtot,tracked,type,rate,rate_lim,rate_max,check_status,check_code,check_duration,hrsp_1xx,hrsp_2xx,hrsp_3xx,hrsp_4xx,hrsp_5xx,hrsp_other,hanafail,req_rate,req_rate_max,req_tot,cli_abrt,srv_abrt,comp_in,comp_out,comp_byp,comp_rsp,lastsess,last_chk,last_agt,qtime,ctime,rtime,ttime,
+http-in,FRONTEND,,,0,14,20000,83865,70007364,1211957805,0,0,275,,,,,OPEN,,,,,,,,,1,2,0,,,,0,0,0,179,,,,0,78598,926,4287,54,0,,0,179,83865,,,0,0,0,0,,,,,,,,
+gmapp,jbossN1,0,0,0,6,,3250,1839552,112018150,,0,,0,0,0,0,UP,1,1,0,31,9,17356,3301,,1,3,1,,284,,2,0,,119,L7OK,200,10,0,2707,477,56,10,0,0,,,,2,0,,,,,6076,OK,,0,0,40,54,
+gmapp,jbossN2,0,0,0,6,,5420,4401072,224328305,,0,,0,1,0,0,UP,1,1,0,17,6,17041,3565,,1,3,2,,254,,2,0,,179,L7OK,200,9,0,4875,423,80,41,0,0,,,,0,0,,,,,5725,OK,,0,0,45,55,
+gmapp,BACKEND,0,0,0,7,2000,8672,6241147,336346879,0,0,,2,1,0,0,UP,2,2,0,,1,278492,3157,,1,3,0,,538,,1,0,,179,,,,0,7582,900,136,54,0,,,,,2,0,0,0,0,0,5725,,,0,0,34,44,
+gmgis,GM-SANDBOX-GIS1,0,0,0,7,,6541,9453526,314037464,,0,,0,0,0,0,UP,1,1,0,1,0,281650,0,,1,4,1,,6541,,2,0,,68,L7OK,200,2,0,6520,3,18,0,0,0,,,,1,0,,,,,33,,,0,0,63,94,
+gmgis,BACKEND,0,0,0,7,2000,6541,9453526,314037464,0,0,,0,0,0,0,UP,1,1,0,,0,281650,0,,1,4,0,,6541,,1,0,,68,,,,0,6520,3,18,0,0,,,,,1,0,0,0,0,0,33,,,0,0,63,94,
+gmgeowebcache,GM-SANDBOX-GIS1-gwc,0,0,0,12,,67496,53869831,542261495,,0,,0,0,0,0,UP,1,1,0,0,0,281650,0,,1,5,1,,67496,,2,0,,139,L4OK,,0,0,63639,0,3857,0,0,0,,,,3,0,,,,,41,,,0,0,3,25,
+gmgeowebcache,BACKEND,0,0,0,12,2000,67496,53869831,542261495,0,0,,0,0,0,0,UP,1,1,0,,0,281650,0,,1,5,0,,67496,,1,0,,139,,,,0,63639,0,3857,0,0,,,,,3,0,0,0,0,0,41,,,0,0,3,25,
+gmgis-master,GM-SANDBOX-GIS1-master,0,0,0,6,,194,133289,1070324,,0,,0,0,0,0,UP,1,1,0,0,0,281650,0,,1,6,1,,19,,2,0,,37,L4OK,,0,0,171,22,1,0,0,0,,,,0,0,,,,,7448,,,0,0,16,51,
+gmgis-master,BACKEND,0,0,0,6,2000,194,133289,1070324,0,0,,0,0,0,0,UP,1,1,0,,0,281650,0,,1,6,0,,19,,1,0,,37,,,,0,171,22,1,0,0,,,,,0,0,0,0,0,0,7448,,,0,0,16,51,
+gmgis-printer,GM-SANDBOX-GIS1-print,0,0,0,1,,686,307907,18190260,,0,,0,0,0,0,UP,1,1,0,0,0,281650,0,,1,7,1,,686,,2,0,,2,L4OK,,0,0,686,0,0,0,0,0,,,,0,0,,,,,42,,,0,0,2,5,
+gmgis-printer,BACKEND,0,0,0,1,2000,686,307907,18190260,0,0,,0,0,0,0,UP,1,1,0,,0,281650,0,,1,7,0,,686,,1,0,,2,,,,0,686,0,0,0,0,,,,,0,0,0,0,0,0,42,,,0,0,2,5,
+admin,FRONTEND,,,4,4,20000,1698,716372,58725046,0,0,6,,,,,OPEN,,,,,,,,,1,8,0,,,,0,4,0,4,,,,0,1617,0,6,71,0,,1,3,1695,,,0,0,0,0,,,,,,,,
+admin,BACKEND,0,0,0,1,2000,71,716372,58725046,0,0,,71,0,0,0,UP,0,0,0,,0,281650,0,,1,8,0,,0,,1,0,,2,,,,0,0,0,0,71,0,,,,,0,0,0,0,0,0,0,,,0,0,0,0,`
 
 console.log('Array: ', stats.toArray(dataCsvStr))
 console.log('Json: ', stats.toJson(dataCsvStr))
